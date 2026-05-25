@@ -68,16 +68,42 @@
   // Form submit
   const form = document.querySelector('.contact-form-wrap');
   if (form) {
-    form.addEventListener('submit', async e => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = form.querySelector('.submit-btn');
+      const successMsg = document.getElementById('form-success');
       btn.textContent = 'Sending…';
       btn.disabled = true;
       try {
-        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() });
-        if (res.ok) { document.getElementById('form-success').style.display = 'block'; form.reset(); }
-      } catch(err) {}
-      btn.innerHTML = 'Book a free consultation <i class="bi bi-arrow-right"></i>';
-      btn.disabled = false;
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          successMsg.style.display = 'block';
+          successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          form.reset();
+          btn.innerHTML = '✓ Sent! I’ll be in touch soon.';
+          setTimeout(() => {
+            btn.innerHTML = 'Book a free consultation <i class="bi bi-arrow-right"></i>';
+            btn.disabled = false;
+            successMsg.style.display = 'none';
+          }, 8000);
+        } else {
+          const data = await response.json().catch(() => ({}));
+          if (data.errors) {
+            alert(data.errors.map(e => e.message).join(', '));
+          } else {
+            alert('Something went wrong. Please try again or message me on WhatsApp.');
+          }
+          btn.innerHTML = 'Book a free consultation <i class="bi bi-arrow-right"></i>';
+          btn.disabled = false;
+        }
+      } catch (error) {
+        alert('Connection error. Please try again or message me on WhatsApp.');
+        btn.innerHTML = 'Book a free consultation <i class="bi bi-arrow-right"></i>';
+        btn.disabled = false;
+      }
     });
   }
