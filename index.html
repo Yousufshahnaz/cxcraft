@@ -293,6 +293,7 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
+    <!-- Row 1: text + video -->
     <div class="about-grid">
       <div class="about-text">
         <div class="section-label">About</div>
@@ -300,17 +301,18 @@
         <p>I'm Mohammad Yousuf — a Contact Center and Customer Experience leader based in Dhaka, Bangladesh. My career spans over two decades across Grameenphone Ltd. and Carnival Internet, two of Bangladesh's most prominent organizations.</p>
         <p>Currently serving as Assistant Manager — Contact Center at Carnival Internet, I lead three teams: the Contact Center, Rural Outbound, and Network Monitoring Center (NMC). Beyond day-to-day operations, I've independently built digital training platforms, real-time monitoring dashboards, and automation tools from scratch.</p>
         <p>My M.Sc. in Psychology (Jagannath University College) gives me a deeper lens for understanding customer behavior, team dynamics, and human-centered service design.</p>
-        <div class="about-pillars">
-          <div class="pillar"><i class="bi bi-ear"></i><div><h4>Active Listening</h4><p>Hearing what customers truly need, simplifying complexity, taking decisive action.</p></div></div>
-          <div class="pillar"><i class="bi bi-heart"></i><div><h4>Empathy-First</h4><p>Seeing through the customer's eyes, listening with their ears, feeling with their heart.</p></div></div>
-          <div class="pillar"><i class="bi bi-lightbulb"></i><div><h4>Solution-Oriented</h4><p>Taking full ownership, thinking innovatively, always delivering on promises.</p></div></div>
-        </div>
       </div>
       <div>
         <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--ink);margin-bottom:.5rem">Why Customer Experience Matters</h3>
         <p style="font-size:14px;color:var(--ink-3);margin-bottom:1.25rem">A powerful perspective on why CX is the key to sustainable business success — one I've lived and applied for 20+ years.</p>
         <div class="video-wrap"><iframe src="https://www.youtube.com/embed/RmWLo0Trl8I" title="Why Customer Experience Matters" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
       </div>
+    </div>
+    <!-- Row 2: pillars full width -->
+    <div class="about-pillars">
+      <div class="pillar"><i class="bi bi-ear"></i><div><h4>Active Listening</h4><p>Hearing what customers truly need, simplifying complexity, taking decisive action.</p></div></div>
+      <div class="pillar"><i class="bi bi-heart"></i><div><h4>Empathy-First</h4><p>Seeing through the customer's eyes, listening with their ears, feeling with their heart.</p></div></div>
+      <div class="pillar"><i class="bi bi-lightbulb"></i><div><h4>Solution-Oriented</h4><p>Taking full ownership, thinking innovatively, always delivering on promises.</p></div></div>
     </div>
   </div>
 </section>
@@ -532,9 +534,9 @@
         </div>
       </div>
       <div>
-        <form class="contact-form-wrap" method="POST" netlify name="contact">
-          <input type="hidden" name="form-name" value="contact">
-          <div style="display:none"><input name="bot-field"></div>
+        <form class="contact-form-wrap" action="https://formspree.io/f/xeedlveo" method="POST">
+          <input type="hidden" name="_subject" value="New Consultation Request - cxcraft.bd">
+          <input type="hidden" name="_captcha" value="false">
           <div id="form-success" class="form-success">Thank you! Your message has been sent. I'll be in touch within 24 hours.</div>
           <div class="form-row">
             <div class="form-group"><label for="name">Your name</label><input type="text" id="name" name="name" placeholder="e.g. Ahmed Rahman" required></div>
