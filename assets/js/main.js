@@ -107,3 +107,57 @@
       }
     });
   }
+*/
+
+  // Form submit — (contact.php)
+  const form = document.getElementById('contactForm');
+  if (form) {
+    // Show success if redirected back
+    if (window.location.hash.includes('contact') && window.location.search.includes('success=1')) {
+      const s = document.getElementById('form-success');
+      if (s) { s.style.display = 'block'; setTimeout(() => s.style.display = 'none', 8000); }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn  = form.querySelector('.submit-btn');
+      const succ = document.getElementById('form-success');
+      const err  = document.getElementById('form-error');
+      succ.style.display = 'none';
+      err.style.display  = 'none';
+      btn.textContent    = 'Sending…';
+      btn.disabled       = true;
+
+      try {
+        const res  = await fetch('contact.php', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.success) {
+          succ.style.display = 'block';
+          succ.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          form.reset();
+          btn.innerHTML = '✓ Sent! I’ll be in touch within 24 hours.';
+          setTimeout(() => {
+            btn.innerHTML = 'Book a free consultation <i class="bi bi-arrow-right"></i>';
+            btn.disabled  = false;
+            succ.style.display = 'none';
+          }, 8000);
+        } else {
+          const msg = data.errors ? data.errors.join(' ') : (data.message || 'Something went wrong. Please try WhatsApp.');
+          err.textContent   = msg;
+          err.style.display = 'block';
+          btn.innerHTML     = 'Book a free consultation <i class="bi bi-arrow-right"></i>';
+          btn.disabled      = false;
+        }
+      } catch (ex) {
+        err.textContent   = 'Connection error. Please try again or message on WhatsApp.';
+        err.style.display = 'block';
+        btn.innerHTML     = 'Book a free consultation <i class="bi bi-arrow-right"></i>';
+        btn.disabled      = false;
+      }
+    });
+  }
