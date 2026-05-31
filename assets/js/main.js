@@ -65,6 +65,7 @@
     }, { threshold: 0.1 }).observe(el);
   });
 
+/*
   // Form submit
   const form = document.querySelector('.contact-form-wrap');
   if (form) {
